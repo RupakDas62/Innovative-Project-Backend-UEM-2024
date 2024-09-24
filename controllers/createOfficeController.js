@@ -1,6 +1,6 @@
 const FireOffice = require('../models/fireOfficeSchema') 
  const createOffice = async(req, res) => {
-    const { name, location, contactNumber, address } = req.body;
+    const { name, email, location, contactNumber, address } = req.body;
   
     if (!name || !location || !contactNumber || !address) {
       return res.status(400).json({ success: false, message: 'All fields are required.' });
@@ -9,6 +9,7 @@ const FireOffice = require('../models/fireOfficeSchema')
     try {
       const office = new FireOffice({
         name,
+        email,
         location,
         contactNumber,
         address,

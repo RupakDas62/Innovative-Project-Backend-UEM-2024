@@ -1,4 +1,5 @@
 const { findNearestOffice } = require('./Helpers/geoService');
+const { sendNotification } = require('./Helpers/notificationService');
 
 /**
  * Controller to handle fire report submissions
@@ -26,6 +27,8 @@ const fireReportController = async (req, res) => {
 
     const message = `Fire reported at ${description}. Please respond ${nearestOffice.name}.`;
     console.log(message);
+
+    await sendNotification(nearestOffice, message);
 
     // Respond with success message and image URL
     return res.status(200).json({

@@ -1,22 +1,28 @@
 const nodemailer = require('nodemailer');
 
-async function sendNotification(office, message) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
+const sendNotification = async (office, message) => {
+  let testAccount = await nodemailer.createTestAccount();
+
+  // connect with the smtp
+  let transporter = await nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
     auth: {
-      user: 'your-email@gmail.com',
-      pass: 'your-email-password',
+      user: "monique.hand13@ethereal.email",
+      pass: "s8wNSVVs4r1N7YFYpH",
     },
   });
 
-  const mailOptions = {
-    from: 'your-email@gmail.com',
-    to: office.email,
-    subject: 'Fire Report',
-    text: message,
-  };
+  let info = await transporter.sendMail({
+    from: '"Rupak Das" <dasr16983@gmail.com>', // sender address
+    to: office.email, // list of receivers
+    subject: "Fire Incident", // Subject line
+    text: message, // plain text body
+    html: `<b>${message}</b>`, // html body
+  });
 
-  await transporter.sendMail(mailOptions);
-}
+  console.log("Message sent: %s", info.messageId);
+
+};
 
 module.exports = { sendNotification };
