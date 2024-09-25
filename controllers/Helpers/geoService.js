@@ -1,9 +1,14 @@
 const { MongoClient } = require('mongodb');
 
+require('dotenv').config();
+
+
+const mongodbURI = process.env.MONGO_URI;
+
 async function findNearestOffice(location) {
   console.log('Location received:', location); // Debugging log
-
-  const client = await MongoClient.connect('mongodb+srv://dasr16983:F26r7p4qY4CyBcQu@innovation-project.5rsvb.mongodb.net/?retryWrites=true&w=majority&appName=Innovation-Project', {
+  console.log(mongodbURI);
+  const client = await MongoClient.connect(mongodbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

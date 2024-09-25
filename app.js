@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+const mongodbURI = process.env.MONGO_URI;
+
 // Middleware
 const corsOptions = {
     origin: 'http://localhost:5173', // Allow requests from this origin
@@ -19,11 +21,13 @@ const corsOptions = {
 
 app.use(express.json()); // For parsing application/json
 
-mongoose.connect('mongodb+srv://dasr16983:F26r7p4qY4CyBcQu@innovation-project.5rsvb.mongodb.net/Innovation-Project?retryWrites=true&w=majority', {
+// console.log(mongodbURI);
+
+mongoose.connect(mongodbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
-  console.log("DB connected to Innovation-Project");
+  console.log(`DB connected to Innovation-Project ${mongodbURI}`);
 }).catch((err) => {
   console.log("Error Occurred while Connecting to DB", err);
 });
