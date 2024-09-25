@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer');
 
+require('dotenv').config();
+transporterUserID = process.env.TRANSPORTER_USERID;
+transporterPassword = process.env.TRANSPORTER_PASS
+
 const sendNotification = async (office, message) => {
   let testAccount = await nodemailer.createTestAccount();
 
@@ -8,8 +12,8 @@ const sendNotification = async (office, message) => {
     host: "smtp.ethereal.email",
     port: 587,
     auth: {
-      user: "monique.hand13@ethereal.email",
-      pass: "s8wNSVVs4r1N7YFYpH",
+      user: transporterUserID,
+      pass: transporterPassword,
     },
   });
 
